@@ -153,11 +153,18 @@ class Quantity
       end
     end
 
-    # A string representation of this unit at the given value
+    # A string representation of this unit at the given value. We assume that
+    # if the unit has at least one alias, that the first alias is the
+    # pluralization of the unit name and we use that for any value greater than
+    # one.
     # @param [Any] value
     # @return [String]
     def s_for(value)
-      "#{value} #{@name.to_s}"
+      if value > 1.0 && @aliases.size > 0
+        "#{value} #{@aliases[0].to_s}"
+      else
+        "#{value} #{@name.to_s}"
+      end
     end
 
     def inspect

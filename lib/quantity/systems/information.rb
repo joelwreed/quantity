@@ -8,11 +8,11 @@ class Quantity
       add_unit :nibble, :data, 4, :nibbles, :nybble, :nybbles
       add_unit :byte, :data, 8, :bytes
 
-      add_unit :kilobyte, :data, 8 * 1000, :kb, :kilobytes
-      add_unit :megabyte, :data, 8 * (1000**2), :mb, :megabytes
-      add_unit :gigabyte, :data, 8 * (1000**3), :gb, :gigabytes
-      add_unit :terabyte, :data, 8 * (1000**4), :tb, :terabytes
-      add_unit :petabyte, :data, 8 * (1000**5), :pb, :petabytes
+      add_unit :kilobyte, :data, 8 * 1000, :kilobytes, :kb
+      add_unit :megabyte, :data, 8 * (1000**2), :megabytes, :mb
+      add_unit :gigabyte, :data, 8 * (1000**3), :gigabytes, :gb
+      add_unit :terabyte, :data, 8 * (1000**4), :terabytes, :tb
+      add_unit :petabyte, :data, 8 * (1000**5), :petabytes, :pb
       add_unit :exabyte, :data, 8 * (1000**6), :exabytes
       add_unit :zettabyte, :data, 8 * (1000**7), :zettabytes
       add_unit :yottabyte, :data, 8 * (1000**8), :yottabytes

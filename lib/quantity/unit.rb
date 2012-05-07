@@ -49,6 +49,7 @@ class Quantity
       unit = Unit.for(unit) unless unit.is_a? Unit
       names.each do |name|
         @@units[name] = unit
+        unit.send(:add_alias, name)
       end
     end
 
@@ -59,9 +60,8 @@ class Quantity
     # @param [[String Symbol]] *aliases
     def self.add_unit(name,dimension,value,*names)
       new_unit = Unit.new({ :name => name,:dimension => Quantity::Dimension.for(dimension),:value => value})
-      names.each do | name |
-        add_alias new_unit, name
-      end
+      @@units[name] = new_unit
+      add_alias new_unit, *names
     end
     class << self ; alias_method :add, :add_unit; end
 
@@ -284,7 +284,8 @@ class Quantity
         raise ArgumentError, "Single-order units must be uniquely named (#{name} - #{dimension})"
       end
       @name = opts[:name] || string_form
-      self.class.add_alias(self,@name.to_sym)
+      @aliases = []
+      #self.class.add_alias(self,@name.to_sym)
       raise ArgumentError, "Creating new unit with no value" unless @value
     end
 
@@ -326,6 +327,12 @@ class Quantity
     # A reduced form of this unit
     def reduced_name
       string_form.to_sym
+    end
+    
+    private
+    
+    def add_alias(name)
+      @aliases << name
     end
 
   end

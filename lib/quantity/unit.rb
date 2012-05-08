@@ -160,11 +160,19 @@ class Quantity
     # @param [Any] value
     # @return [String]
     def s_for(value)
+      unit_str = @name.to_s
       if value > 1.0 && @aliases.size > 0
-        "#{value} #{@aliases[0].to_s}"
-      else
-        "#{value} #{@name.to_s}"
+        unit_str = @dimension.string_form
+        last_numerator = @dimension.numerators.last.dimension
+        (@units || {@dimension => self}).each do | dimension, unit |
+          if dimension.name == last_numerator && unit.aliases.size > 0
+            unit_str = unit_str.gsub(dimension.name.to_s, unit.aliases[0].to_s)
+          else
+            unit_str = unit_str.gsub(dimension.name.to_s, unit.name.to_s)
+          end
+        end
       end
+      "#{value} #{unit_str}"
     end
 
     def inspect

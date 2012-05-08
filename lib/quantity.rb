@@ -281,8 +281,13 @@ class Quantity
 
   # Round this value to the nearest integer
   # @return [Quantity]
-  def round
-    Quantity.new(@value.round, @unit)
+  def round(ndigits = 0)
+    if @value.method('round').arity == 0
+      adjust = 10.0 ** ndigits
+      Quantity.new((@value * adjust).round() / adjust, @unit)
+    else
+      Quantity.new(@value.round(ndigits), @unit)
+    end
   end
 
   # Truncate this value to an integer

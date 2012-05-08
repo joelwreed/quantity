@@ -3,7 +3,7 @@ class Quantity
     MAJOR = 0
     MINOR = 1
     TINY  = 2
-    EXTRA = 1
+    EXTRA = 2
 
     STRING = [MAJOR, MINOR, TINY].join('.')
     STRING << ".#{EXTRA}" if EXTRA

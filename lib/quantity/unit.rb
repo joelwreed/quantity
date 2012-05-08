@@ -161,7 +161,7 @@ class Quantity
     # @return [String]
     def s_for(value)
       unit_str = @name.to_s
-      if value > 1.0 && @aliases.size > 0
+      if value > 1.0
         unit_str = @dimension.string_form
         last_numerator = @dimension.numerators.last.dimension
         (@units || {@dimension => self}).each do | dimension, unit |
